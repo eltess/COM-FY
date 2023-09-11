@@ -16,5 +16,3 @@ jobs:
         
       - name: Run Checkout Repository
         uses: github/super-linter@v3
-        env:
-        DEFAULT_BRANCH: main
