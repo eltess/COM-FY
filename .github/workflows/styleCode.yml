@@ -23,6 +23,6 @@ jobs:
           version: '6.40.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
-          severity-threshold: 4
-          engine: pmd
-          target: tests
+      - uses: ./
+        with: 
+         path: '**/pmd.xml'
