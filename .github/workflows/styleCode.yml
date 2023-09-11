@@ -25,6 +25,6 @@ jobs:
     id: pmd
     with:
         version: '6.40.0'
-        sourcePath: 'src/main/java'
-        rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
+          sourcePath: 'src/main/java'
+          rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
      
