@@ -1,6 +1,5 @@
-name: StyleCode
+name: PMD Static Code Analysis
 
-# Manual or automatic release
 on:
   release:
     types: [published, edited]
