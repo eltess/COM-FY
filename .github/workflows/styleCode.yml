@@ -25,7 +25,7 @@ jobs:
         id: pmd
         with:
           version: '6.40.0'
-          sourcePath: 'src/main/java'
+          sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           -name: Fail build if there are violations 
           if: steps.pmd.outputs.violations == 0
