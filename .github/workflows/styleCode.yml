@@ -21,10 +21,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - uses: pmd/pmd-github-action@v1
-  name: PMD Static Code Analysis
-    id: pmd
-    with:
-        version: '6.40.0'
-          sourcePath: 'src/main/java'
-          rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
+    
+    name: PMD Static Code Analysissss
+        id: pmd
+          with:
+              version: '6.40.0'
+                sourcePath: 'src/main/java'
+                rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
      
