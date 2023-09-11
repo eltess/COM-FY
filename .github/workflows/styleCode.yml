@@ -21,4 +21,3 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - uses: pmd/pmd-github-action@v1
-      rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
