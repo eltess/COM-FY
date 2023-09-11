@@ -23,6 +23,4 @@ jobs:
           version: '6.40.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
-      - uses: ./
-        with: 
-         path: '**/pmd.xml'
+          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
