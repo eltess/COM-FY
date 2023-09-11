@@ -3,14 +3,13 @@ name: StyleCode
 on: push
 
 jobs:
-   style-code:
-    name: Check code base
-    runs-on: ubuntu-latest 
+  pmd-analyser-check:
+    name: PMD Static Code Analysis
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-       -name: Run StyleCode
-        uses: github/super-linter@v3
-        env: main
-        DEFAUKT_BRANCH: main
