@@ -32,6 +32,6 @@ jobs:
           note-rules: 'ApexDoc'
       
       - name: No PMD Errors?
-        if: steps.pmd-full-analysis.outputs.error-found 
+        if: steps.pmd.outputs.violations != 0
         run: exit 1
 
