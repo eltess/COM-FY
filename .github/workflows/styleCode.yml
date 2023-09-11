@@ -24,7 +24,7 @@ jobs:
   name: PMD Static Code Analysis
     id: pmd
     with:
-      version: '6.40.0'
-      sourcePath: 'src/main/java'
-      rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
+        version: '6.40.0'
+        sourcePath: 'src/main/java'
+        rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
      
