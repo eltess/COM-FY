@@ -7,8 +7,8 @@ jobs:
     name: Check code base
     runs-on: ubuntu-latest 
     steps:
-      -name: Checkout Code
-       uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
        -name: Run StyleCode
         uses: github/super-linter@v3
