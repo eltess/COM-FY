@@ -1,6 +1,8 @@
 name: StyleCode
 
-on: push
+on:
+  release:
+    types: [push, published, edited]
 
 jobs:
   pmd-analyser-check:
