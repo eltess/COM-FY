@@ -20,3 +20,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+     - name: Setup Environment
+      shell: bash
+      run: |
+        echo "LANG=en_US.UTF-8" >> $GITHUB_ENV
+        echo "PMD_CI_SCRIPTS_URL=https://raw.githubusercontent.com/pmd/build-tools/master/scripts" >> $GITHUB_ENV
