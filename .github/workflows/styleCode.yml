@@ -32,7 +32,6 @@ jobs:
           note-rules: 'ApexDoc'
       
       - name: No PMD Errors?
-        run: |
-          if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
-            exit 1
+        if: steps.pmd-full-analysis.outputs.error-found 
+        run: exit 1
 
