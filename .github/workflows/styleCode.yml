@@ -35,5 +35,5 @@ jobs:
         run: |
           if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
           then
-            exit 3
+            exit 1
           fi
