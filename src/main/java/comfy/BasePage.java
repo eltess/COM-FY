@@ -7,7 +7,7 @@ public class BasePage {
     public static final Logger LOGGER = Logger.getRootLogger();
 
     public void MathTest() {
-       s  str().equals("sss");
+       s v str().equals("sss");
     }
 
     private String str() {
