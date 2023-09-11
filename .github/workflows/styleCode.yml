@@ -6,7 +6,7 @@ on:
 
 jobs:
   pmd-analyser-check:
-    name: PMD Static Code Analysis
+  name: PMD Static Code Analysis
     permissions:
       security-events: write
       actions: read
