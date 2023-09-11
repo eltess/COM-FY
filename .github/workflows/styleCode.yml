@@ -30,16 +30,7 @@ jobs:
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
           note-rules: 'ApexDoc'
-      - name: Run PMD Analysis on Files Changed
-        id: pmd-partial-analysis
-        if: github.event.pull_request != null
-        uses: synergy-au/pmd-analyser-action@v2.1
-        with:
-          pmd-version: 'latest'
-          file-path: './src'
-          rules-path: 'rules/maven-pmd-plugin-custom-rules.xml'
-          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-          note-rules: 'ApexDoc'
+      
       - name: No PMD Errors?
         run: |
           if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
