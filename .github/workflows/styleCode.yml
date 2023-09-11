@@ -1,9 +1,11 @@
-name: Publish
+name: StyleCode
 
 # Manual or automatic release
 on:
   release:
     types: [published, edited]
+    
+on: push
 
 jobs:
   pmd-analyser-check:
@@ -19,6 +21,3 @@ jobs:
         
       - name: Run Checkout Repository
         uses: github/super-linter@v3
-
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
