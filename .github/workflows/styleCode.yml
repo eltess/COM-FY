@@ -1,55 +1,24 @@
-name: PMD Static Code Analysis
+name: Publish
+
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  release:
+    types: [published, edited]
 
 jobs:
-  pmd-analyser-check:
-    name: PMD Static Code Analysis
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      # Release with semantic tag like v1.0.3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          # Incremental diffs require fetch depth to be at 0 to grab the target branch
-          fetch-depth: '0'
-      - name: Run Full PMD Analysis
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        id: pmd-full-analysis
-        uses: synergy-au/pmd-analyser-action@v2.1
+          ref: ${{ github.event.release.tag_name }}
+          
+      - name: Setup Node
+        uses: actions/setup-node@v3.8.1
         with:
-          analyse-all-code: 'true'
-          pmd-version: 'latest'
-          file-path: './src'
-          rules-path: './rules/maven-pmd-plugin-custom-rules.xml'
-          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-          note-rules: 'ApexDoc'
-      - name: Run PMD Analysis on Files Changed
-        id: pmd-partial-analysis
-        if: github.event.pull_request != null
-        uses: synergy-au/pmd-analyser-action@v2.1
-        with:
-          pmd-version: 'latest'
-          file-path: './src'
-          rules-path: './rules/maven-pmd-plugin-custom-rules.xml'
-          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-          note-rules: 'ApexDoc'
-      - name: Upload results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: pmd-output.sarif
-      - name: No PMD Errors?
-        run: |
-          if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
-          then
-            exit 3
-          fi
+          node-version: 20
+          
+      - uses: JasonEtco/build-and-tag-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
