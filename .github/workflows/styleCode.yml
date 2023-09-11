@@ -12,18 +12,13 @@ jobs:
       security-events: write
       actions: read
       contents: read
-  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.release.tag_name }}
-          
+        uses: actions/checkout@v2
+        
       - name: Run Checkout Repository
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: 20
+        uses: github/super-linter@v3
 
         env:
           GITHUB_TOKEN: ${{ github.token }}
