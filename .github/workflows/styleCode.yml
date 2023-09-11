@@ -23,4 +23,9 @@ jobs:
           version: '6.40.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
-          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
+      - name: No PMD Errors?
+        run: |
+          if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
+          then
+            exit 3
+          fi
