@@ -7,23 +7,23 @@ on:
 jobs:
   pmd-analyser-check:
   name: PMD Static Code Analysis
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      # Release with semantic tag like v1.0.3
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.release.tag_name }}
-          
-      - name: Setup Node
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: 20
-          
-      - uses: JasonEtco/build-and-tag-action@v2
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+  permissions:
+    security-events: write
+    actions: read
+    contents: read
+  runs-on: ubuntu-latest
+  steps:
+    # Release with semantic tag like v1.0.3
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.release.tag_name }}
+        
+    - name: Setup Node
+      uses: actions/setup-node@v3.8.1
+      with:
+        node-version: 20
+        
+    - uses: JasonEtco/build-and-tag-action@v2
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
