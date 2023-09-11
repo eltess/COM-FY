@@ -12,10 +12,6 @@ on:
 jobs:
   pmd-analyser-check:
     name: PMD Static Code Analysis
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -29,4 +25,4 @@ jobs:
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           -name: Fail build if there are violations 
           if: steps.pmd.outputs.violations == 0
-          run: exit 1
+          runs: exit 1
