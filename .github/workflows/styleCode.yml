@@ -5,7 +5,7 @@ on:
     types: [published, edited]
 
 jobs:
- pmd-analyser-check:
+  pmd-analyser-check:
     name: PMD Static Code Analysis
     permissions:
       security-events: write
