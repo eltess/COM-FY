@@ -34,6 +34,5 @@ jobs:
       - name: No PMD Errors?
         run: |
           if ${{ steps.pmd-full-analysis.outputs.error-found }} ${{ steps.pmd-partial-analysis.outputs.error-found }}
-          then
             exit 1
           fi
