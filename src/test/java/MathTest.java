@@ -4,7 +4,7 @@ public class MathTest {
 
     @Test
     public void MathTest() {
-           str().equals("sss");
+                      str().equals("sss");
 
     }
 
