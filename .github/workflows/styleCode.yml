@@ -24,5 +24,5 @@ jobs:
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           -name: Fail build if there are violations 
-          if: steps.pmd.outputs.violations == 0
-          runs: exit 1
+          if: steps.pmd.outputs.violations != 0
+          runs: steps.pmd.outputs.violations != 0
