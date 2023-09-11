@@ -24,8 +24,6 @@ jobs:
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
       - name: No PMD Errors?
-        run: |
-          if: steps.pmd-full-analysis.outputs.error-found != 0
-          then
-            exit 3
-          fi
+        if: steps.pmd.outputs.error-found != 0
+        run: exit 1
+
