@@ -1,4 +1,4 @@
-package com.comfy.config;
+package comfy.config;
 
 import org.aeonbits.owner.Config;
 

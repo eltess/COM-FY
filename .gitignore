@@ -1,0 +1,6 @@
+.idea
+.allure
+target/
+build/
+justAutomationFramework.iml
+COM-FY.iml
