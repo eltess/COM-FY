@@ -18,11 +18,6 @@ jobs:
           ruby-version: 2.7
           bundler-cache: true
 
-      - name: Run github_changelog_generator
-        shell: bash
-        run: |
-          bundle exec github_changelog_generator --token ${{ secrets.GITHUB_TOKEN }}
-
       - name: Compare the expected and actual CHANGELOG.md
         run: |
           if [ "$(git diff CHANGELOG.md | wc -l)" -gt "0" ]; then
