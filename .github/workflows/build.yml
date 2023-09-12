@@ -26,10 +26,11 @@ jobs:
       id: pmd
       with:
         version: '6.40.0'
-        error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-        note-rules: 'ApexDoc'
+       
         sourcePath: 'src/main/java'
         rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
+        error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
+        note-rules: 'ApexDoc'
     - name: Fail build if there are violations
       if: steps.pmd-full-analysis.outputs.error-found 
       run: exit 1
