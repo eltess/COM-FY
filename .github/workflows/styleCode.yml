@@ -26,11 +26,9 @@ jobs:
         id: pmd
         with:
           version: '6.40.0'
-          sourcePath: 'src/main/java'
+          sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
-          error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-          note-rules: 'ApexDoc'
-      
+
       - name: No PMD Errors?
         if: steps.pmd-full-analysis.outputs.error-found 
         run: exit 1
