@@ -30,10 +30,6 @@ jobs:
         rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
         error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
         note-rules: 'ApexDoc'
-    - name: Fail build if there are violations
-      if: steps.pmd.outputs.violations != 0
-      run: exit 1
-      
     - name: No PMD Errors?
-      if: steps.pmd-full-analysis.outputs.error-found 
-      run: exit 1
+      if: steps.pmd.outputs.violations != 0
+      run: exit 1      
