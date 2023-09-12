@@ -25,7 +25,7 @@ jobs:
       - uses: pmd/pmd-github-action@v1
         id: pmd
         with:
-          version: '6.70.0'
+          version: '6.50.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
