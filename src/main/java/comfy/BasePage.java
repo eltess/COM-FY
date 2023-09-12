@@ -6,11 +6,4 @@ public class BasePage {
 
     public static final Logger LOGGER = Logger.getRootLogger();
 
-    public void MathTest() {
-       ff().equals("sss");
-    }
-
-    private String str() {
-        return "str";
-    }
 }
