@@ -24,12 +24,13 @@ jobs:
           fetch-depth: '0'
       - uses: sfdx-actions/setup-pmd@v1
       - name: run-pmd
+        
         id: pmd
         with:
           version: '6.40.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
-
+          run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
       - name: No PMD Errors?
         if: steps.pmd-full-analysis.outputs.error-found 
         run: exit 1
