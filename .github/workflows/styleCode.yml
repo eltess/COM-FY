@@ -22,7 +22,7 @@ jobs:
         with:
           # Incremental diffs require fetch depth to be at 0 to grab the target branch
           fetch-depth: '0'
-      - uses: pmd/pmd-github-action@v1
+      - uses: pmd/pmd-github-action@v2
         id: pmd
         with:
           version: '6.40.0'
