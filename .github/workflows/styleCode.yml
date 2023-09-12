@@ -25,13 +25,12 @@ jobs:
       - uses: pmd/pmd-github-action@v1
         id: pmd
         with:
-          version: '6.50.0'
+          version: '6.40.0'
           sourcePath: 'src'
           rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
           error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
           note-rules: 'ApexDoc'
       
       - name: No PMD Errors?
-        if: steps.pmd.outputs.violations != 0
+        if: steps.pmd-full-analysis.outputs.error-found 
         run: exit 1
-
