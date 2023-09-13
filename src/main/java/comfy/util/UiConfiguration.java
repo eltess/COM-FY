@@ -9,5 +9,5 @@ import static comfy.util.ReadProperties.readProperties;
 
 public class UiConfiguration {
 
-    public static Platform PLATFORM = readProperties().getProperty("platform").equals("android") ? ANDROID : IOS;
+    public static Platform platform = readProperties().getProperty("platform").equals("android") ? ANDROID : IOS;
 }
