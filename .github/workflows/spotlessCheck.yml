@@ -1,69 +1,17 @@
-name: Build & Publish
-on:
-  pull_request:
-  push:
-    branches: [main]
-
+on: [push]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-test:
-    runs-on: ${{ matrix.os }}
-    name: 'Build & Analyse (${{ matrix.os }} - Java ${{ matrix.java-version }} - Node ${{ matrix.node-version }})'
-    strategy:
-      matrix:
-        node-version: ['16']
-        java-version: ['11']
-        os: [ubuntu-latest, windows-latest]
-        # os: [ubuntu-latest, windows-latest, macos-latest]
+  spotless:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.5.1
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Use Java ${{ matrix.java-version }}
-        uses: actions/setup-java@v2.5.0
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java-version }}
-          distribution: 'adopt'
-          architecture: x64
-      - name: Install NPM Packages
-        run: npm ci
-      - name: Lint extension
-        run: npm run lint
-      - name: Prepare Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build -x spotlessCheck
-          build-root-directory: test-fixtures/gradle-project
-          gradle-executable: test-fixtures/gradle-project/gradlew
-      - name: Prepare Spotless
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: spotlessDiagnose --no-configuration-cache
-          build-root-directory: test-fixtures/gradle-project
-          gradle-executable: test-fixtures/gradle-project/gradlew
-      - name: Prepare Gradle (multi-project)
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build -x spotlessCheck
-          build-root-directory: test-fixtures/gradle-multi-project
-          gradle-executable: test-fixtures/gradle-multi-project/gradlew
-      - name: Prepare Spotless (multi-project)
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: spotlessDiagnose --no-configuration-cache
-          build-root-directory: test-fixtures/gradle-multi-project
-          gradle-executable: test-fixtures/gradle-multi-project/gradlew
-      - name: Install test-fixtures NPM packages
-        run: |
-          npm ci --prefix test-fixtures/gradle-project
-      - name: Start Xvfb
-        run: |
-          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-        if: matrix.os == 'ubuntu-latest'
-      - name: Build & Test Extension
-        run: |
-          npm run compile:all
-          npm run test
-        env:
-          DISPLAY: ':99.0'
+          distribution: 'zulu'
+          java-version: 17
+      - run: ./gradlew spotlessCheck
