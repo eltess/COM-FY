@@ -1,86 +1,72 @@
-# BUILDCACHE_USER
-# BUILDCACHE_PASS
-#   - rw access to buildcache.diffplug.com
-
+name: Build & Publish
 on:
-  pull_request:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
-  sanityCheck:
-    name: spotlessCheck assemble testClasses
-    runs-on: ubuntu-latest
-    env:
-      buildcacheuser: ${{ secrets.BUILDCACHE_USER }}
-      buildcachepass: ${{ secrets.BUILDCACHE_PASS }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: 11
-      - name: gradle caching
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-home-cache-cleanup: true
-      - name: spotlessCheck
-        run: ./gradlew spotlessCheck
-      - name: assemble testClasses
-        run: ./gradlew assemble testClasses
-  build:
-    needs: sanityCheck
-    strategy:
-      fail-fast: false
-      matrix:
-        kind: [maven, gradle]
-        jre: [11, 17]
-        os: [ubuntu-latest]
-        include:
-          # test windows at the diagonals of the above matrix
-          - kind: maven
-            jre: 11
-            os: windows-latest
-          - kind: gradle
-            jre: 17
-            os: windows-latest
-          # npm on linux only (crazy slow on windows)
-          - kind: npm
-            jre: 11
-            os: ubuntu-latest
+  build-and-test:
     runs-on: ${{ matrix.os }}
+    name: 'Build & Analyse (${{ matrix.os }} - Java ${{ matrix.java-version }} - Node ${{ matrix.node-version }})'
+    strategy:
+      matrix:
+        node-version: ['16']
+        java-version: ['11']
+        os: [ubuntu-latest, windows-latest]
+        # os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install JDK ${{ matrix.distribution }} ${{ matrix.java_version }}
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v1
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.5.1
         with:
-          distribution: "temurin"
-          java-version: ${{ matrix.jre }}
-      - name: gradle caching
+          node-version: ${{ matrix.node-version }}
+      - name: Use Java ${{ matrix.java-version }}
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'adopt'
+          architecture: x64
+      - name: Install NPM Packages
+        run: npm ci
+      - name: Lint extension
+        run: npm run lint
+      - name: Prepare Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-home-cache-cleanup: true
-      - name: build (maven-only)
-        if: matrix.kind == 'maven'
-        run: ./gradlew :plugin-maven:build -x spotlessCheck
-      - name: build (everything-but-maven)
-        if: matrix.kind == 'gradle'
-        run: ./gradlew build -x spotlessCheck -PSPOTLESS_EXCLUDE_MAVEN=true
-      - name: test npm
-        if: matrix.kind == 'npm'
-        run: ./gradlew testNpm
-      - name: junit result
-        uses: mikepenz/action-junit-report@v3
-        if: always() # always run even if the previous step fails
+          arguments: build -x spotlessCheck
+          build-root-directory: test-fixtures/gradle-project
+          gradle-executable: test-fixtures/gradle-project/gradlew
+      - name: Prepare Spotless
+        uses: gradle/gradle-build-action@v2
         with:
-          check_name: JUnit ${{ matrix.kind }} ${{ matrix.jre }} ${{ matrix.os }}
-          report_paths: '*/build/test-results/*/TEST-*.xml'
+          arguments: spotlessDiagnose --no-configuration-cache
+          build-root-directory: test-fixtures/gradle-project
+          gradle-executable: test-fixtures/gradle-project/gradlew
+      - name: Prepare Gradle (multi-project)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build -x spotlessCheck
+          build-root-directory: test-fixtures/gradle-multi-project
+          gradle-executable: test-fixtures/gradle-multi-project/gradlew
+      - name: Prepare Spotless (multi-project)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: spotlessDiagnose --no-configuration-cache
+          build-root-directory: test-fixtures/gradle-multi-project
+          gradle-executable: test-fixtures/gradle-multi-project/gradlew
+      - name: Install test-fixtures NPM packages
+        run: |
+          npm ci --prefix test-fixtures/gradle-project
+      - name: Start Xvfb
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        if: matrix.os == 'ubuntu-latest'
+      - name: Build & Test Extension
+        run: |
+          npm run compile:all
+          npm run test
+        env:
+          DISPLAY: ':99.0'
