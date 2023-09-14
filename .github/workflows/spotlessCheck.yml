@@ -7,7 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0         
+          fetch-depth: 0 
+      - name: Make
+        run: chmod +x ./gradlew
       - uses: actions/setup-java@v3
         with: 
           distribution: 'zulu'
