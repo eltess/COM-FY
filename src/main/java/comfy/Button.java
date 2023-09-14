@@ -6,7 +6,6 @@ import comfy.util.UiConfiguration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Button implements ElementAction {
-
     private final String buttonName;
     public SelenideElement rootElement;
 
