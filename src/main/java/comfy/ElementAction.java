@@ -15,31 +15,31 @@ public interface ElementAction {
     SelenideElement element();
 
     default void waiterForElement() {
-        LOGGER.info("Wait for element to be visible");
+        LOGGER.info("Wait for {this.name} to be visible");
         element().should(Condition.visible);
     }
-    @Step("Click on element")
+    @Step("Click = {this.name}")
     default void click() {
         waiterForElement();
-        LOGGER.info("Click on element");
+        LOGGER.info("Click on {this.name}");
         element().click();
     }
-    @Step("Element is displayed")
+    @Step("{this.name} is displayed")
     default boolean isDisplayed() {
         waiterForElement();
-        LOGGER.info("Element is displayed");
+        LOGGER.info("{this.name} is displayed");
         return element().isDisplayed();
     }
-    @Step("Element is enabled")
+    @Step("{this.name} is enabled")
     default boolean isEnabled() {
         waiterForElement();
-        LOGGER.info("Element is enabled");
+        LOGGER.info("{this.name} is enabled");
         return element().isEnabled();
     }
-    @Step("Element is selected")
+    @Step("{this.name} is selected")
     default boolean isSelected() {
         waiterForElement();
-        LOGGER.info("Element is selected");
+        LOGGER.info("{this.name} is selected");
         return element().isSelected();
     }
 }
