@@ -13,4 +13,5 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - name: SPOTLESS Static Code Analysis
-        run: mvn spotlessCheck
+        run: mvn spotless:apply
+
