@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
-          rulesets: 'rules/maven-pmd-plugin-custom-rules.xml'
+          settings-path: 'rules/maven-pmd-plugin-custom-rules.xml'
           distribution: 'zulu'
           java-version: 17
       - run: ./gradlew spotlessCheck
