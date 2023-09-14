@@ -41,9 +41,7 @@ public class DesiredCapabilities {
     @SneakyThrows
     private URL getUrl() {
         URL remoteUrl;
-
         remoteUrl = new URL(url());
-
         return remoteUrl;
     }
 

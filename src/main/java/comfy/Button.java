@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Selenide.$x;
 public class Button implements ElementAction {
 
     private final String buttonName;
-    public SelenideElement selenideElement;
+    public SelenideElement rootElement;
 
     public Button(String id, String name) {
-        this.selenideElement = $x("//*[@%s='%s']".formatted(UiConfiguration.platform.getIdAttribute(), id));
+        this.rootElement = $x("//*[@%s='%s']".formatted(UiConfiguration.platform.getIdAttribute(), id));
         this.buttonName = "%s %s".formatted(name, "Button");
     }
 
@@ -22,6 +22,6 @@ public class Button implements ElementAction {
 
     @Override
     public SelenideElement element() {
-        return selenideElement;
+        return rootElement;
     }
 }
