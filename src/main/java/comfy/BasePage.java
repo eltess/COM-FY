@@ -6,5 +6,4 @@ public class BasePage {
 
     public static final Logger LOGGER = Logger.getRootLogger();
 
-
 }
