@@ -1,28 +1,16 @@
-    name: Code Formatter Check
-    on:
-      push:
-        branches: [main]
+name:  SPOTLESS Static Code Analysis
 
-      pull_request:
-        branches: [main]
-    jobs:
-      build:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
-          - name: Setup JDK 17
-            uses: actions/setup-java@v1
-            with:
-              java-version: 17
-              distribution: 'adopt'
-              cache: maven
-          - name: Build with maven
-            run: mvn spotless:apply
-          - uses: actions/setup-java@v3
-            with:
-              distribution: 'zulu'
-              settings-path: 'rules/eclipse-java-google-style.xml'
-              distribution: 'zulu'
-              java-version: 17
-          - run: mvn spotlessCheck
-
+on: [push]
+jobs:
+  spotless:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
+        with:
+          settings-path: 'rules/eclipse-java-google-style.xml'
+          distribution: 'zulu'
+          java-version: 17
+      - run: mvn spotlessCheck
