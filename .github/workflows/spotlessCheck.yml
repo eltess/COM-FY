@@ -9,23 +9,20 @@ jobs:
       buildcacheuser: ${{ secrets.BUILDCACHE_USER }}
       buildcachepass: ${{ secrets.BUILDCACHE_PASS }}
   
-    steps:         
-      - name: Checkout
+          - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
       - name: Install JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: 11
-          
       - name: gradle caching
         uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
-
       - name: spotlessCheck
         run: ./gradlew spotlessCheck
-
+      - name: assemble testClasses
+        run: ./gradlew assemble testClasses
