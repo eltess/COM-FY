@@ -20,6 +20,7 @@
             run: mvn spotless:apply
           - uses: actions/setup-java@v3
             with:
+              distribution: 'zulu'
               settings-path: 'rules/eclipse-java-google-style.xml'
               distribution: 'zulu'
               java-version: 17
