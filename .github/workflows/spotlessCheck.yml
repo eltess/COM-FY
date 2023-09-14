@@ -18,4 +18,10 @@
               cache: maven
           - name: Build with maven
             run: mvn spotless:apply
+          - uses: actions/setup-java@v3
+            with:
+              settings-path: 'rules/eclipse-java-google-style.xml'
+              distribution: 'zulu'
+              java-version: 17
+          - run: mvn spotlessCheck
 
