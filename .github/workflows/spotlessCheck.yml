@@ -1,6 +1,14 @@
 name:  SPOTLESS Static Code Analysis
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   sanityCheck:
     name: spotlessCheck assemble testClasses
@@ -8,8 +16,8 @@ jobs:
     env:
       buildcacheuser: ${{ secrets.BUILDCACHE_USER }}
       buildcachepass: ${{ secrets.BUILDCACHE_PASS }}
-  
-          - name: Checkout
+    steps:
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
