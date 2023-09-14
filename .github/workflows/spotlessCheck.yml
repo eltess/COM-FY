@@ -19,6 +19,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
+      - name: Make
+        run: chmod +x ./gradlew
       - name: spotlessCheck
         run: ./gradlew spotlessCheck
 
