@@ -1,6 +1,5 @@
 package comfy.util;
 
-
 import comfy.enums.Platform;
 
 import static comfy.enums.Platform.ANDROID;

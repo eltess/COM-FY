@@ -6,6 +6,6 @@ public class CheckBugPageHeaderTest extends BaseTest {
 
     @Test
     public void checkBugPageHeaderTest() {
-         System.out.println();
+        System.out.println();
     }
 }

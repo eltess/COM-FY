@@ -9,7 +9,6 @@ import lombok.SneakyThrows;
 import org.aeonbits.owner.ConfigFactory;
 import java.net.URL;
 
-
 public class DesiredCapabilities {
 
     private static final String REMOTE_SERVER_URL = "http://127.0.0.1:4723/wd/hub";
@@ -43,7 +42,7 @@ public class DesiredCapabilities {
     private URL getUrl() {
         URL remoteUrl;
 
-            remoteUrl = new URL(url());
+        remoteUrl = new URL(url());
 
         return remoteUrl;
     }

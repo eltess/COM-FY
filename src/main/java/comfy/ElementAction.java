@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 
 public interface ElementAction {
+
     Logger LOGGER = Logger.getLogger(ElementAction.class);
 
     String name();
@@ -23,18 +24,21 @@ public interface ElementAction {
         LOGGER.info("Click on element");
         element().click();
     }
+
     @Step("Element is displayed")
     default boolean isDisplayed() {
         waiterForElement();
         LOGGER.info("Element is displayed");
         return element().isDisplayed();
     }
+
     @Step("Element is enabled")
     default boolean isEnabled() {
         waiterForElement();
         LOGGER.info("Element is enabled");
         return element().isEnabled();
     }
+
     @Step("Element is selected")
     default boolean isSelected() {
         waiterForElement();
