@@ -15,15 +15,15 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 11
+          
+      - name: Make
+        run: chmod +x ./gradlew
+        
       - name: gradle caching
         uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
-      - name: Make
-        run: chmod +x ./gradlew
+
       - name: spotlessCheck
         run: ./gradlew spotlessCheck
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
