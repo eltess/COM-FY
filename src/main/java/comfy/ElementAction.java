@@ -3,10 +3,12 @@ package comfy;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.apache.log4j.Logger;
+
+import java.util.Locale;
+
+import static comfy.BasePage.LOGGER;
 
 public interface ElementAction {
-    Logger LOGGER = Logger.getLogger(ElementAction.class);
 
     String name();
 
@@ -16,7 +18,6 @@ public interface ElementAction {
         LOGGER.info("Wait for element to be visible");
         element().should(Condition.visible);
     }
-
     @Step("Click on element")
     default void click() {
         waiterForElement();
