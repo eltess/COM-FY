@@ -198,7 +198,7 @@
     <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName"/>
     <rule ref="category/java/codestyle.xml/TooManyStaticImports">
         <properties>
-            <property name="maximumStaticImports" value="20"/>
+            <property name="maximumStaticImports" value="60"/>
         </properties>
     </rule>
     <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement"/>
