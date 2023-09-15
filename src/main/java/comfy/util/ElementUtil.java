@@ -2,9 +2,11 @@ package comfy.util;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byAttribute;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static comfy.enums.Platform.ANDROID;
 import static comfy.util.UiConfiguration.PLATFORM;
 import static io.appium.java_client.AppiumBy.accessibilityId;
@@ -34,14 +36,14 @@ public class ElementUtil {
     }
 
     public static SelenideElement getElementContainsId(String id) {
-        return $x("//*[contains(@%s,'%s')]".formatted(PLATFORM.getIdAttribute(), id));
+        return $(By.xpath("//*[contains(@%s,'%s')]".formatted(PLATFORM.getIdAttribute(), id)));
     }
 
     public static ElementsCollection getElementsContainsId(String id) {
-        return $$x("//*[contains(@%s,'%s')]".formatted(PLATFORM.getIdAttribute(), id));
+        return $$("//*[contains(@%s,'%s')]".formatted(PLATFORM.getIdAttribute(), id));
     }
 
     public static SelenideElement getElementWithText(String text) {
-        return $x("//*[@%s='%s']".formatted(PLATFORM.getTextAttribute(), text));
+        return $("//*[@%s='%s']".formatted(PLATFORM.getTextAttribute(), text));
     }
 }
