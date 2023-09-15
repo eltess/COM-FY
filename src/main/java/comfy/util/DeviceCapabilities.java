@@ -70,7 +70,8 @@ public class DeviceCapabilities {
         return remoteUrl;
     }
 
-    //private final String link = TEST_PLATFORM_J != null ? TEST_PLATFORM_J : uiConfiguration.executionPlatform();
+    // private final String link = TEST_PLATFORM_J != null ? TEST_PLATFORM_J :
+    // uiConfiguration.executionPlatform();
 
     @Step("Selected PLATFORM = {this.link}")
     private String url() {
