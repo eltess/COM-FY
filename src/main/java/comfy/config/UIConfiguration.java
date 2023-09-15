@@ -10,6 +10,7 @@ import static org.aeonbits.owner.Config.LoadType.MERGE;
         "system:env",
         "classpath:appium.properties",})
 public interface UIConfiguration extends Config {
+
     @Key("testPlatform")
     @DefaultValue("saucelabs")
     String executionPlatform();
