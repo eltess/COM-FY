@@ -19,7 +19,7 @@ public class ElementUtil {
         return switch(PLATFORM) {
             case IOS -> element.text();
             case ANDROID -> {
-                SelenideElement textElement = element.$(className(PLATFORM.getTextClass()));
+                 SelenideElement textElement = element.$(className(PLATFORM.getTextClass()));
                 yield textElement.exists() ? textElement.text() : "";
             }
         };
